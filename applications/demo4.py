@@ -66,14 +66,14 @@ def main():
                     break
                 else:
                     next
-            print('a')
-            print ('Read a new frame: ', success)
+            #print('a')
+            #print ('Read a new frame: ', success)
             try:
                 pose_2d, visibility, pose_3d = pose_estimator.estimate(image)
-                print('Successfully processed')
+                #print('Successfully processed')
             except:
                 pose_3d = pose_3d
-                print('Not successfully processed - used last pose estimates')
+                #print('Not successfully processed - used last pose estimates')
             poses.append(pose_3d)
             print('Frames processed at {} frames per second: {}'.format(str(1000/timestep),str(count)))
             count = count + 1
