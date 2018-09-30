@@ -14,7 +14,8 @@ import math
 
 __all__ = [
     'draw_limbs',
-    'plot_pose'
+    'plot_pose',
+    'plot_poses'
 ]
 
 
@@ -40,7 +41,7 @@ def draw_limbs(image, pose_2d, visible):
             cv2.circle(image, (x0, y0), JOINT_DRAW_SIZE *_NORMALISATION_FACTOR , _COLORS[lid], -1)
             cv2.circle(image, (x1, y1), JOINT_DRAW_SIZE*_NORMALISATION_FACTOR , _COLORS[lid], -1)
             cv2.line(image, (x0, y0), (x1, y1),
-                     _COLORS[lid], LIMB_DRAW_SIZE*_NORMALISATION_FACTOR , 16)
+                     _COLORS[lid], max(LIMB_DRAW_SIZE*_NORMALISATION_FACTOR,1) , 16)
 
 
 def plot_pose(pose):
@@ -92,5 +93,66 @@ def plot_pose(pose):
     ax.set_zlim3d(smallest, largest)
 
     return fig
+
+def plot_poses(poses):
+    """Plot the 3D pose showing the joint connections."""
+    import mpl_toolkits.mplot3d.axes3d as p3
+    from matplotlib.animation import FuncAnimation
+
+
+    _CONNECTION = [
+        [0, 1], [1, 2], [2, 3], [0, 4], [4, 5], [5, 6], [0, 7], [7, 8],
+        [8, 9], [9, 10], [8, 11], [11, 12], [12, 13], [8, 14], [14, 15],
+        [15, 16]]
+
+    def joint_color(j):
+        """
+        TODO: 'j' shadows name 'j' from outer scope
+        """
+
+        colors = [(0, 0, 0), (255, 0, 255), (0, 0, 255),
+                  (0, 255, 255), (255, 0, 0), (0, 255, 0)]
+        _c = 0
+        if j in range(1, 4):
+            _c = 1
+        if j in range(4, 7):
+            _c = 2
+        if j in range(9, 11):
+            _c = 3
+        if j in range(11, 14):
+            _c = 4
+        if j in range(14, 17):
+            _c = 5
+        return colors[_c]
+
+    #assert (pose.ndim == 2)
+    #assert (pose.shape[0] == 3)
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+
+    def init():
+        ax.clear()
+        ax.set_xlim3d(-800, 800)
+        ax.set_ylim3d(-800, 800)
+        ax.set_zlim3d(-800, 800)
+
+    def update(i):
+        pose = poses[i][0]
+        ax.clear()
+        ax.set_xlim3d(-800, 800)
+        ax.set_ylim3d(-800, 800)
+        ax.set_zlim3d(-800, 800)
+        for c in _CONNECTION:
+            col = '#%02x%02x%02x' % joint_color(c[0])
+            ax.plot([pose[0, c[0]], pose[0, c[1]]],
+                [pose[1, c[0]], pose[1, c[1]]],
+                [pose[2, c[0]], pose[2, c[1]]], c=col)
+        for j in range(pose.shape[1]):
+            col = '#%02x%02x%02x' % joint_color(j)
+            ax.scatter(pose[0, j], pose[1, j], pose[2, j],c=col, marker='o', edgecolor=col)
+
+    ani = FuncAnimation(fig, update, init_func=init, frames = range(len(poses)), interval=1,repeat = True)
+
+    plt.show()
 
 
