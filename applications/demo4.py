@@ -21,7 +21,7 @@ import numpy as np
 DIR_PATH = dirname(realpath(__file__))
 PROJECT_PATH = realpath(DIR_PATH + '/..')
 IMAGE_FILE_PATH = '/Users/greenl/Downloads/cablepull1.jpg'
-VIDEO_FILE_PATH = '/Users/greenl/Documents/pullups3.mp4'
+VIDEO_FILE_PATH = '/home/ubuntu/Landing/pullups3.mp4'
 SAVED_SESSIONS_DIR = PROJECT_PATH + '/data/saved_sessions'
 SESSION_PATH = SAVED_SESSIONS_DIR + '/init_session/init'
 PROB_MODEL_PATH = SAVED_SESSIONS_DIR + '/prob_model/prob_model_params.mat'
