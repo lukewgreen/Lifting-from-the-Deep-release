@@ -89,7 +89,7 @@ class PoseEstimator(PoseEstimatorInterface):
         sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
         print('-- LOG DEVICE --')
         sess.run(tf.global_variables_initializer())
-        print(sess.run(tf.global_variables_initializer()))
+        print(sess.run())
         saver = tf.train.Saver()
         saver.restore(sess, self.session_path)
 
