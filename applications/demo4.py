@@ -55,7 +55,7 @@ def main():
 
         err_count = 0
         timestep = 50
-        print(time.time() = start_time)
+        print(time.time() - start_time)
         while success:
             print('reading frame 1')
             start_time = time.time()
