@@ -88,7 +88,7 @@ class PoseEstimator(PoseEstimatorInterface):
                 self.pose_image_in, self.pose_centermap_in,
                 utils.config.INPUT_SIZE)
 
-        sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+        sess = tf.Session()
         sess.run(tf.global_variables_initializer())
         saver = tf.train.Saver()
         saver.restore(sess, self.session_path)

@@ -36,6 +36,8 @@ def main():
         count = 0
         vidcap = cv2.VideoCapture(VIDEO_FILE_PATH)
         success,image = vidcap.read()
+        print('-----------------')
+        print(image)
         success = True
         image = cv2.resize(image, (0,0), fx=0.3, fy=0.3)
         image_size = image.shape
@@ -53,7 +55,7 @@ def main():
         poses.append(pose_3d)
 
         err_count = 0
-        timestep = 50
+        timestep = 100
         start_time = time.time()
         while success:
             try:
