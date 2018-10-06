@@ -22,7 +22,7 @@ import time
 DIR_PATH = dirname(realpath(__file__))
 PROJECT_PATH = realpath(DIR_PATH + '/..')
 IMAGE_FILE_PATH = '/Users/greenl/Downloads/cablepull1.jpg'
-VIDEO_FILE_PATH = '/home/ubuntu/data/hmdb/pullups/pull_ups_pullup_u_nm_np1_ba_med_0.avi'
+VIDEO_FILE_PATH = '/home/ubuntu/data/hmdb/pullups/Strong_Girl_Gymnast_Does_20+_Pull_Ups_Chin_Up_marcusbondi_pullup_f_cm_np1_fr_med_0.avi'
 SAVED_SESSIONS_DIR = PROJECT_PATH + '/data/saved_sessions'
 SESSION_PATH = SAVED_SESSIONS_DIR + '/init_session/init'
 PROB_MODEL_PATH = SAVED_SESSIONS_DIR + '/prob_model/prob_model_params.mat'
