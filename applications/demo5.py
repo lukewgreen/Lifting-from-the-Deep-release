@@ -22,7 +22,7 @@ import time
 DIR_PATH = dirname(realpath(__file__))
 PROJECT_PATH = realpath(DIR_PATH + '/..')
 IMAGE_FILE_PATH = '/Users/greenl/Downloads/cablepull1.jpg'
-VIDEO_FILE_PATH = '/home/ubuntu/data/hmdb/pullups/Strong_Girl_Gymnast_Does_20+_Pull_Ups_Chin_Up_marcusbondi_pullup_f_cm_np1_fr_med_0.avi'
+VIDEO_FILE_PATH = '/home/ubuntu/data/hmdb/pullups/20_good_form_pullups_pullup_f_nm_np1_ri_goo_0.avi'
 SAVED_SESSIONS_DIR = PROJECT_PATH + '/data/saved_sessions'
 SESSION_PATH = SAVED_SESSIONS_DIR + '/init_session/init'
 PROB_MODEL_PATH = SAVED_SESSIONS_DIR + '/prob_model/prob_model_params.mat'
@@ -30,7 +30,7 @@ RUN_ON_SAVED = False
 
 def main():
     if RUN_ON_SAVED:
-        poses = np.load('Strong_Girl_Gymnast_Does_20+_Pull_Ups_Chin_Up_marcusbondi_pullup_f_cm_np1_fr_med_0.npy')
+        poses = np.load('20_good_form_pullups_pullup_f_nm_np1_ri_goo_0.npy')
     else:
         poses = []
         count = 0
@@ -53,7 +53,7 @@ def main():
         poses.append(pose_3d)
 
         err_count = 0
-        timestep = 100
+        timestep = 20
         start_time = time.time()
         while success:
             try:
@@ -81,7 +81,7 @@ def main():
             print(count)
         time_taken = time.time() - start_time
         print('number of frame processed: {} in {} seconds'.format(count,time_taken))
-        np.save('Strong_Girl_Gymnast_Does_20+_Pull_Ups_Chin_Up_marcusbondi_pullup_f_cm_np1_fr_med_0.npy',poses)
+        np.save('20_good_form_pullups_pullup_f_nm_np1_ri_goo_0.npy',poses)
         print('FPS calculation rate: {}'.format(float(count)/time_taken))
         # Show 2D and 3D poses
         #display_results(image, pose_2d, visibility, pose_3d)
