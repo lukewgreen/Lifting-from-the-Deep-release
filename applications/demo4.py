@@ -31,6 +31,8 @@ def main():
     if RUN_ON_SAVED:
         poses = np.load('poses-pullups3-lqtest.npy')
     else:
+        print('start time:')
+        start_time = time.time()
         poses = []
         count = 0
         vidcap = cv2.VideoCapture(VIDEO_FILE_PATH)
@@ -38,7 +40,7 @@ def main():
         success = True
         image = cv2.resize(image, (0,0), fx=0.3, fy=0.3)
         image_size = image.shape
-        
+
 
         pose_estimator = PoseEstimator(image_size, SESSION_PATH, PROB_MODEL_PATH)
 
@@ -50,12 +52,23 @@ def main():
         pose_2d, visibility, pose_3d = pose_estimator.estimate(image)
 
         poses.append(pose_3d)
+
         err_count = 0
         timestep = 50
+        print(time.time() = start_time)
         while success:
-            vidcap.set(cv2.CAP_PROP_POS_MSEC,(count*timestep))    # added this line 
+            print('reading frame 1')
+            start_time = time.time()
+            vidcap.set(cv2.CAP_PROP_POS_MSEC,(count*timestep))    # added this line
+            print(time.time() - start_time)
+            print('reading frame 2')
+            start_time = time.time()
             success,image = vidcap.read()
+            print(time.time() - start_time)
+            print('resizing')
+            start_time = time.time()
             image = cv2.resize(image, (0,0), fx=0.3, fy=0.3)
+            print(time.time() - start_time)
             try:
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             except:
@@ -69,7 +82,10 @@ def main():
             #print('a')
             #print ('Read a new frame: ', success)
             try:
+                print('getting pose 2d and 3d')
+                start_time = time.time()
                 pose_2d, visibility, pose_3d = pose_estimator.estimate(image)
+                print(time.time() - start_time)
                 #print('Successfully processed')
             except:
                 pose_3d = pose_3d
