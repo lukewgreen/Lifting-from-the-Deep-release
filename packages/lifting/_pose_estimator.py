@@ -115,8 +115,6 @@ class PoseEstimator(PoseEstimatorInterface):
         image = cv2.resize(image, (0, 0), fx=self.scale,
                            fy=self.scale, interpolation=cv2.INTER_CUBIC)
         b_image = np.array(image[np.newaxis] / 255.0 - 0.5, dtype=np.float32)
-        print('b_image')
-        print(b_image)
         hmap_person = sess.run(self.heatmap_person_large, {
                                self.image_in: b_image})
 
