@@ -30,7 +30,7 @@ RUN_ON_SAVED = False
 
 def main():
     if RUN_ON_SAVED:
-        poses = np.load('pull_ups_pullup_u_nm_np1_ba_med_0.avi.npy')
+        poses = np.load('Strong_Girl_Gymnast_Does_20+_Pull_Ups_Chin_Up_marcusbondi_pullup_f_cm_np1_fr_med_0.npy')
     else:
         poses = []
         count = 0
@@ -83,7 +83,7 @@ def main():
             print(count)
         time_taken = time.time() - start_time
         print('number of frame processed: {} in {} seconds'.format(count,time_taken))
-        np.save('pull_ups_pullup_u_nm_np1_ba_med_0.avi',poses)
+        np.save('Strong_Girl_Gymnast_Does_20+_Pull_Ups_Chin_Up_marcusbondi_pullup_f_cm_np1_fr_med_0.npy',poses)
         print('FPS calculation rate: {}'.format(float(count)/time_taken))
         # Show 2D and 3D poses
         #display_results(image, pose_2d, visibility, pose_3d)
