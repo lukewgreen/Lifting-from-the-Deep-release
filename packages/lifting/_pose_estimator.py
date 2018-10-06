@@ -12,6 +12,8 @@ import tensorflow as tf
 import abc
 ABC = abc.ABCMeta('ABC', (object,), {})
 
+import time
+
 __all__ = [
     'PoseEstimatorInterface',
     'PoseEstimator'
