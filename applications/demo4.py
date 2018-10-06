@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 from os.path import dirname, realpath
 import numpy as np
 
+import time
 
 DIR_PATH = dirname(realpath(__file__))
 PROJECT_PATH = realpath(DIR_PATH + '/..')
