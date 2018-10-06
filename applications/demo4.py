@@ -78,6 +78,7 @@ def main():
                 #print('Not successfully processed - used last pose estimates')
             poses.append(pose_3d)
             count = count + 1
+            print(count)
         time_taken = time.time() - start_time
         print('number of frame processed: {} in {} seconds'.format(count,time_taken))
         np.save('poses-pullups3-lqtest2.npy',poses)
