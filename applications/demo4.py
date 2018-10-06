@@ -32,8 +32,6 @@ def main():
     if RUN_ON_SAVED:
         poses = np.load('poses-pullups3-lqtest.npy')
     else:
-        print('start time:')
-        start_time = time.time()
         poses = []
         count = 0
         vidcap = cv2.VideoCapture(VIDEO_FILE_PATH)
@@ -55,25 +53,15 @@ def main():
         poses.append(pose_3d)
 
         err_count = 0
-        timestep = 50
-        print(time.time() - start_time)
+        timestep = 20
+        start_time = time.time()
         while success:
-            print('reading frame 1')
-            start_time = time.time()
             vidcap.set(cv2.CAP_PROP_POS_MSEC,(count*timestep))    # added this line
-            print(time.time() - start_time)
-            print('reading frame 2')
-            start_time = time.time()
             success,image = vidcap.read()
-            print(time.time() - start_time)
-            print('resizing')
-            start_time = time.time()
             image = cv2.resize(image, (0,0), fx=0.3, fy=0.3)
-            print(time.time() - start_time)
             try:
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             except:
-                print('skipping frame')
                 count = count + 1
                 err_count = err_count + 1
                 if err_count == 2:
@@ -83,18 +71,17 @@ def main():
             #print('a')
             #print ('Read a new frame: ', success)
             try:
-                print('getting pose 2d and 3d')
-                start_time = time.time()
                 pose_2d, visibility, pose_3d = pose_estimator.estimate(image)
-                print(time.time() - start_time)
                 #print('Successfully processed')
             except:
                 pose_3d = pose_3d
                 #print('Not successfully processed - used last pose estimates')
             poses.append(pose_3d)
-            print('Frames processed at {} frames per second: {}'.format(str(1000/timestep),str(count)))
             count = count + 1
-        np.save('poses-pullups3-lqtest.npy',poses)
+        time_taken = time.time() - start_time
+        print('number of frame processed: {} in {} seconds'.format(count,time_taken))
+        np.save('poses-pullups3-lqtest2.npy',poses)
+        print('FPS calculation rate: {}'.format(float(count)/time_taken))
         # Show 2D and 3D poses
         #display_results(image, pose_2d, visibility, pose_3d)
     plot_poses(poses)
