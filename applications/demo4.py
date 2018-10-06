@@ -53,13 +53,13 @@ def main():
         poses.append(pose_3d)
 
         err_count = 0
-        timestep = 20
+        timestep = 50
         start_time = time.time()
         while success:
-            vidcap.set(cv2.CAP_PROP_POS_MSEC,(count*timestep))    # added this line
-            success,image = vidcap.read()
-            image = cv2.resize(image, (0,0), fx=0.3, fy=0.3)
             try:
+                vidcap.set(cv2.CAP_PROP_POS_MSEC,(count*timestep))    # added this line
+                success,image = vidcap.read()
+                image = cv2.resize(image, (0,0), fx=0.3, fy=0.3)
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             except:
                 count = count + 1
